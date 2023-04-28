@@ -19,6 +19,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
+/**
+ * GiftCertificate is the main entity of application.
+ */
 @Getter
 @Setter
 @SuperBuilder

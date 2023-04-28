@@ -15,9 +15,9 @@ repositories {
 dependencies {
 
     implementation(
-            'org.springframework:spring-core:6.0.6',
-            'org.springframework:spring-webmvc:6.0.6',
-            'org.springframework:spring-orm:6.0.6',
+            "org.springframework:spring-core:${springVersion}",
+            "org.springframework:spring-webmvc:${springVersion}",
+            "org.springframework:spring-orm:${springVersion}",
             'org.hibernate:hibernate-core:6.1.7.Final',
             'com.fasterxml.jackson.core:jackson-databind:2.14.2',
             'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2',
@@ -32,7 +32,9 @@ dependencies {
             "org.mockito:mockito-core:${mockitoVersion}",
             "org.mockito:mockito-junit-jupiter:${mockitoVersion}",
             'org.assertj:assertj-core:3.24.2',
-            'org.testcontainers:postgresql:1.18.0'
+            "org.testcontainers:postgresql:${testcontainersVersion}",
+            "org.testcontainers:junit-jupiter:${testcontainersVersion}",
+            "org.springframework:spring-test:${springVersion}"
     )
 
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.9.2"

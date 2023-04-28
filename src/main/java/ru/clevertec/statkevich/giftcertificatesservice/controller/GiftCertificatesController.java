@@ -1,8 +1,8 @@
 package ru.clevertec.statkevich.giftcertificatesservice.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -21,6 +21,10 @@ import ru.clevertec.statkevich.giftcertificatesservice.service.GiftCertificateSe
 
 import java.util.List;
 
+/**
+ * Described class expose REST API to perform
+ * CRUD operations for Gift Certificates.
+ */
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/certificates")
@@ -31,11 +35,10 @@ public class GiftCertificatesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long create(@Validated @RequestBody GiftCertificateCreateUpdateDto giftCertificateCreateUpdateDto) {
+    public Long create(@Valid @RequestBody GiftCertificateCreateUpdateDto giftCertificateCreateUpdateDto) {
         GiftCertificate giftCertificate = giftCertificateMapper.toEntity(giftCertificateCreateUpdateDto);
         return giftCertificateService.create(giftCertificate);
     }
-
 
     @GetMapping(path = "/{id}")
     public GiftCertificateVo getById(@PathVariable Long id) {
@@ -43,17 +46,19 @@ public class GiftCertificatesController {
         return giftCertificateMapper.toDto(giftCertificate);
     }
 
-
+    /**
+     * @param filter represent filtering and ordering passed in path variables
+     * @return list of Gift Certificates
+     */
     @GetMapping
     public List<GiftCertificateVo> getList(GiftCertificateFilter filter) {
         List<GiftCertificate> certificateList = giftCertificateService.findAll(filter);
         return giftCertificateMapper.toDtoList(certificateList);
     }
 
-
     @PatchMapping(path = "/{id}")
     public void update(@PathVariable Long id,
-                       @Validated @RequestBody GiftCertificateCreateUpdateDto giftCertificateCreateUpdateDto) {
+                       @Valid @RequestBody GiftCertificateCreateUpdateDto giftCertificateCreateUpdateDto) {
         giftCertificateService.update(id, giftCertificateCreateUpdateDto);
     }
 

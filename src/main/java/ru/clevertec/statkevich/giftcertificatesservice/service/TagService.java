@@ -9,6 +9,11 @@ import ru.clevertec.statkevich.giftcertificatesservice.mapper.TagMapper;
 
 import java.util.List;
 
+
+/**
+ * Described class bind storage and output of application.
+ * As well as uses CRUD operations for this purpose.
+ */
 @RequiredArgsConstructor
 @Service
 public class TagService implements ITagService {

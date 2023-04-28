@@ -20,7 +20,10 @@ import ru.clevertec.statkevich.giftcertificatesservice.service.TagService;
 
 import java.util.List;
 
-
+/**
+ * Described class expose REST API to perform
+ * CRUD operations for Tags.
+ */
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/tags")
