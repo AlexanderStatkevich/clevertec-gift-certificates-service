@@ -3,6 +3,7 @@ package ru.clevertec.statkevich.giftcertificatesservice.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -40,10 +41,10 @@ public class GiftCertificatesController {
         return giftCertificateService.create(giftCertificate);
     }
 
-    @GetMapping(path = "/{id}")
-    public GiftCertificateVo getById(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<GiftCertificateVo> getById(@PathVariable Long id) {
         GiftCertificate giftCertificate = giftCertificateService.findById(id);
-        return giftCertificateMapper.toDto(giftCertificate);
+        return ResponseEntity.ok(giftCertificateMapper.toDto(giftCertificate));
     }
 
     /**
@@ -56,13 +57,13 @@ public class GiftCertificatesController {
         return giftCertificateMapper.toDtoList(certificateList);
     }
 
-    @PatchMapping(path = "/{id}")
+    @PatchMapping("/{id}")
     public void update(@PathVariable Long id,
                        @Valid @RequestBody GiftCertificateCreateUpdateDto giftCertificateCreateUpdateDto) {
         giftCertificateService.update(id, giftCertificateCreateUpdateDto);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         giftCertificateService.delete(id);
     }

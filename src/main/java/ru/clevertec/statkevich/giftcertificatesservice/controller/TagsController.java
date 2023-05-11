@@ -26,7 +26,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "/tags")
+@RequestMapping("/tags")
 public class TagsController {
 
     private final TagService tagService;
@@ -40,7 +40,7 @@ public class TagsController {
     }
 
 
-    @GetMapping(path = "/{id}")
+    @GetMapping("/{id}")
     public TagVo findById(@PathVariable Long id) {
         Tag tag = tagService.findById(id);
         return tagMapper.toDto(tag);
