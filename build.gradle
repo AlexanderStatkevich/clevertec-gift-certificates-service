@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'war'
+    id "io.freefair.lombok" version "8.0.1"
+}
+
+group 'ru.clevertec'
+version '1.0'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation(
+            "org.springframework:spring-core:${springVersion}",
+            "org.springframework:spring-webmvc:${springVersion}",
+            "org.springframework:spring-orm:${springVersion}",
+            'org.hibernate:hibernate-core:6.1.7.Final',
+            'com.fasterxml.jackson.core:jackson-databind:2.14.2',
+            'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2',
+            "org.mapstruct:mapstruct:${mapstructVersion}",
+            'org.apache.tomcat:tomcat-dbcp:11.0.0-M5',
+            'org.postgresql:postgresql:42.6.0',
+            'org.hibernate.validator:hibernate-validator:8.0.0.Final',
+    )
+
+    testImplementation(
+            'org.junit.jupiter:junit-jupiter-api:5.9.2',
+            "org.mockito:mockito-core:${mockitoVersion}",
+            "org.mockito:mockito-junit-jupiter:${mockitoVersion}",
+            'org.assertj:assertj-core:3.24.2',
+            "org.testcontainers:postgresql:${testcontainersVersion}",
+            "org.testcontainers:junit-jupiter:${testcontainersVersion}",
+            "org.springframework:spring-test:${springVersion}"
+    )
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.9.2"
+
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+}
+
+compileJava {
+    options.compilerArgs = [
+            '-Amapstruct.defaultComponentModel=spring',
+            '-Amapstruct.unmappedTargetPolicy=IGNORE'
+    ]
+}
+
+test {
+    useJUnitPlatform()
+}
