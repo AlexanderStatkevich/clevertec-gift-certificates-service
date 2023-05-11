@@ -16,4 +16,6 @@ public interface ITagService {
     void update(Long id, TagCreateUpdateDto tagCreateUpdateDto);
 
     void delete(Long id);
+
+    Tag findMostUsedTag();
 }
