@@ -49,6 +49,7 @@ dependencies {
 
     annotationProcessor(
             "org.mapstruct:mapstruct-processor:${mapstructVersion}",
+            'org.projectlombok:lombok-mapstruct-binding:0.2.0',
             'org.projectlombok:lombok'
     )
 }

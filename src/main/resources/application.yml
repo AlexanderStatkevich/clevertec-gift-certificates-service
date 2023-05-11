@@ -6,10 +6,9 @@ spring:
       ddl-auto: validate
     properties:
       hibernate:
-        default_schema: data
         dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: jdbc:postgresql://localhost:5777/nameDB
+    url: jdbc:postgresql://localhost:port/nameDB
     username: changeMe
     password: changeMe
     driverClassName: org.postgresql.Driver

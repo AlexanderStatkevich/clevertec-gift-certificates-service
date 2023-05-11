@@ -1,0 +1,22 @@
+Hash Join  (cost=54.32..91.38 rows=264 width=524) (actual time=0.011..0.014 rows=0 loops=1)
+  Hash Cond: (ct.tag_id = t.id)
+  ->  Hash Join  (cost=41.17..77.52 rows=264 width=8) (never executed)
+        Hash Cond: (ct.certificate_id = c.id)
+        ->  Seq Scan on certificate_tags ct  (cost=0.00..28.50 rows=1850 width=16) (never executed)
+        ->  Hash  (cost=41.04..41.04 rows=10 width=16) (never executed)
+              ->  Hash Semi Join  (cost=30.05..41.04 rows=10 width=16) (never executed)
+                    Hash Cond: (c.id = (unnest((array_agg(orders.certificate_id)))))
+                    ->  Seq Scan on certificates c  (cost=0.00..10.70 rows=70 width=8) (never executed)
+                    ->  Hash  (cost=29.92..29.92 rows=10 width=8) (never executed)
+                          ->  ProjectSet  (cost=29.75..29.82 rows=10 width=8) (never executed)
+                                ->  Limit  (cost=29.75..29.75 rows=1 width=72) (never executed)
+                                      ->  Sort  (cost=29.75..30.25 rows=200 width=72) (never executed)
+                                            Sort Key: (sum(orders.price)) DESC
+                                            ->  HashAggregate  (cost=25.75..28.75 rows=200 width=72) (never executed)
+                                                  Group Key: orders.customer_id
+                                                  ->  Seq Scan on orders  (cost=0.00..19.00 rows=900 width=46) (never executed)
+  ->  Hash  (cost=11.40..11.40 rows=140 width=524) (actual time=0.006..0.007 rows=0 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 8kB
+        ->  Seq Scan on tags t  (cost=0.00..11.40 rows=140 width=524) (actual time=0.006..0.006 rows=0 loops=1)
+Planning Time: 0.324 ms
+Execution Time: 0.077 ms
