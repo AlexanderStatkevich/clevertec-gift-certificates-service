@@ -5,10 +5,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.clevertec.statkevich.giftcertificatesservice.dao.IGiftCertificateDao;
 import ru.clevertec.statkevich.giftcertificatesservice.domain.GiftCertificate;
+import ru.clevertec.statkevich.giftcertificatesservice.repository.GiftCertificateRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -17,7 +18,7 @@ import static org.mockito.Mockito.when;
 class GiftCertificateServiceTest {
 
     @Mock
-    private IGiftCertificateDao giftCertificateDao;
+    private GiftCertificateRepository giftCertificateRepository;
 
     @InjectMocks
     private GiftCertificateService giftCertificateService;
@@ -25,7 +26,7 @@ class GiftCertificateServiceTest {
     @Test
     void checkCreateReturnCorrectId() {
         GiftCertificate certificate = GiftCertificate.builder().id(1L).name("test").build();
-        when(giftCertificateDao.create(certificate)).thenReturn(1L);
+        when(giftCertificateRepository.save(certificate)).thenReturn(certificate);
         Long expected = giftCertificateService.create(certificate);
         assertThat(1L).isEqualTo(expected);
     }
@@ -33,7 +34,7 @@ class GiftCertificateServiceTest {
     @Test
     void checkFindByIdMethodReturningCorrectEntity() {
         GiftCertificate expected = GiftCertificate.builder().id(1L).name("test").build();
-        when(giftCertificateDao.findById(1L)).thenReturn(expected);
+        when(giftCertificateRepository.findById(1L)).thenReturn(Optional.of(expected));
         GiftCertificate actual = giftCertificateService.findById(1L);
         assertThat(actual).isEqualTo(expected);
     }
@@ -42,7 +43,7 @@ class GiftCertificateServiceTest {
     void checkFindAllReturnCorrectList() {
         GiftCertificate certificate = GiftCertificate.builder().id(1L).name("test").build();
         List<GiftCertificate> expected = List.of(certificate);
-        when(giftCertificateDao.findAll()).thenReturn(expected);
+        when(giftCertificateRepository.findAll()).thenReturn(expected);
         List<GiftCertificate> actual = giftCertificateService.findAll(null);
         assertThat(actual).isEqualTo(expected);
     }

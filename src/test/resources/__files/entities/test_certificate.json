@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "name": "test cert1",
+  "description": "in cinema",
+  "price": 10.3,
+  "duration": 25,
+  "createDate": "20220424T000000.000 GMT",
+  "lastUpdateDate": "20220424T000000.000 GMT"
+}

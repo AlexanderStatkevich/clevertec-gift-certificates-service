@@ -15,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -44,5 +45,18 @@ public class Order extends BaseEntity {
     void initProperties() {
         this.purchaseDateTime = LocalDateTime.now();
         this.price = certificate.getPrice();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return Objects.equals(purchaseDateTime, order.purchaseDateTime) && Objects.equals(price, order.price) && Objects.equals(customer, order.customer) && Objects.equals(certificate, order.certificate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(purchaseDateTime, price, customer, certificate);
     }
 }

@@ -21,3 +21,20 @@ CREATE TABLE certificate_tags
     certificate_id serial NOT NULL REFERENCES certificates (id),
     tag_id         serial NOT NULL REFERENCES tags (id)
 );
+
+CREATE TABLE users
+(
+    id        bigserial PRIMARY KEY,
+    email     varchar(255) UNIQUE NOT NULL,
+    full_name varchar(255)        NOT NULL,
+    password  varchar(255)
+);
+
+CREATE TABLE orders
+(
+    id                      bigserial PRIMARY KEY,
+    timestamp_of_a_purchase timestamp(6)   NOT NULL,
+    price                   numeric(19, 2) NOT NULL,
+    customer_id             serial         NOT NULL REFERENCES users (id),
+    certificate_id          serial         NOT NULL REFERENCES certificates (id)
+);
