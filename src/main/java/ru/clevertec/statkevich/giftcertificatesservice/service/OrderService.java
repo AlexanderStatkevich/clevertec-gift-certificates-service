@@ -2,12 +2,12 @@ package ru.clevertec.statkevich.giftcertificatesservice.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.clevertec.statkevich.giftcertificatesservice.domain.Order;
 import ru.clevertec.statkevich.giftcertificatesservice.repository.OrderRepository;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -27,7 +27,7 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public List<Order> findByUser(Long customerId) {
-        return orderRepository.findByCustomer_Id(customerId);
+    public Page<Order> findByUser(Long customerId, Pageable pageable) {
+        return orderRepository.findByCustomer_Id(customerId, pageable);
     }
 }

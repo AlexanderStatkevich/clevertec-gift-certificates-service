@@ -1,10 +1,10 @@
 package ru.clevertec.statkevich.giftcertificatesservice.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.clevertec.statkevich.giftcertificatesservice.domain.GiftCertificate;
 import ru.clevertec.statkevich.giftcertificatesservice.dto.GiftCertificateCreateUpdateDto;
 import ru.clevertec.statkevich.giftcertificatesservice.filter.GiftCertificateFilter;
-
-import java.util.List;
 
 public interface IGiftCertificateService {
 
@@ -12,7 +12,7 @@ public interface IGiftCertificateService {
 
     GiftCertificate findById(Long id);
 
-    List<GiftCertificate> findAll(GiftCertificateFilter filter);
+    Page<GiftCertificate> findAll(Pageable pageable, GiftCertificateFilter filter);
 
     void update(Long id, GiftCertificateCreateUpdateDto giftCertificateCreateUpdateDto);
 

@@ -2,14 +2,14 @@ package ru.clevertec.statkevich.giftcertificatesservice.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.clevertec.statkevich.giftcertificatesservice.domain.Tag;
 import ru.clevertec.statkevich.giftcertificatesservice.dto.TagCreateUpdateDto;
 import ru.clevertec.statkevich.giftcertificatesservice.mapper.TagMapper;
 import ru.clevertec.statkevich.giftcertificatesservice.repository.TagRepository;
-
-import java.util.List;
 
 
 /**
@@ -36,8 +36,8 @@ public class TagService implements ITagService {
     }
 
     @Override
-    public List<Tag> findAll() {
-        return tagRepository.findAll();
+    public Page<Tag> findAll(Pageable pageable) {
+        return tagRepository.findAll(pageable);
     }
 
     @Transactional

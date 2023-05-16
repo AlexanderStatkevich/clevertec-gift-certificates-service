@@ -1,8 +1,8 @@
 package ru.clevertec.statkevich.giftcertificatesservice.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.clevertec.statkevich.giftcertificatesservice.domain.Order;
-
-import java.util.List;
 
 public interface IOrderService {
 
@@ -10,5 +10,5 @@ public interface IOrderService {
 
     Order findById(Long id);
 
-    List<Order> findByUser(Long customerId);
+    Page<Order> findByUser(Long customerId, Pageable pageable);
 }

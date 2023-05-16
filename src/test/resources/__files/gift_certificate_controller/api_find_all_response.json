@@ -1,0 +1,48 @@
+[
+  {
+    "id": 1,
+    "name": "test cert1",
+    "description": "in cinema",
+    "price": 10.3,
+    "duration": 25,
+    "createDate": "2022-04-24 00:00:00",
+    "lastUpdateDate": "2022-04-24 00:00:00",
+    "tags": [
+      {
+        "id": 1,
+        "name": "test1"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "test cert2",
+    "description": "in park",
+    "price": 20.3,
+    "duration": 35,
+    "createDate": "2022-04-24 00:00:00",
+    "lastUpdateDate": "2022-04-24 00:00:00",
+    "tags": [
+      {
+        "id": 2,
+        "name": "test2"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "test cert3",
+    "description": "in smth",
+    "price": 30.3,
+    "duration": 45,
+    "createDate": "2022-04-24 00:00:00",
+    "lastUpdateDate": "2022-04-24 00:00:00",
+    "tags": [
+      {
+        "id": 3,
+        "name": "test3"
+      }
+    ]
+  }
+]
+

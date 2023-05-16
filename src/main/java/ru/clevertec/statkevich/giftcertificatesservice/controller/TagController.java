@@ -2,7 +2,10 @@ package ru.clevertec.statkevich.giftcertificatesservice.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,8 +21,6 @@ import ru.clevertec.statkevich.giftcertificatesservice.dto.TagVo;
 import ru.clevertec.statkevich.giftcertificatesservice.mapper.TagMapper;
 import ru.clevertec.statkevich.giftcertificatesservice.service.TagService;
 
-import java.util.List;
-
 /**
  * Described class expose REST API to perform
  * CRUD operations for Tags.
@@ -27,31 +28,30 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/tags")
-public class TagsController {
+public class TagController {
 
     private final TagService tagService;
     private final TagMapper tagMapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long create(@Valid @RequestBody TagCreateUpdateDto tagCreateUpdateDto) {
+    public ResponseEntity<Long> create(@Valid @RequestBody TagCreateUpdateDto tagCreateUpdateDto) {
         Tag tag = tagMapper.toEntity(tagCreateUpdateDto);
-        return tagService.create(tag);
+        return ResponseEntity.status(HttpStatus.CREATED).body(tagService.create(tag));
     }
 
 
     @GetMapping("/{id}")
-    public TagVo findById(@PathVariable Long id) {
+    public ResponseEntity<TagVo> findById(@PathVariable Long id) {
         Tag tag = tagService.findById(id);
-        return tagMapper.toDto(tag);
+        return ResponseEntity.ok(tagMapper.toDto(tag));
     }
 
     @GetMapping
-    public List<TagVo> findAll() {
-        List<Tag> tagList = tagService.findAll();
-        return tagMapper.toDtoList(tagList);
+    public ResponseEntity<Page<TagVo>> findAll(Pageable pageable) {
+        Page<Tag> tagPage = tagService.findAll(pageable);
+        return ResponseEntity.ok(tagPage.map(tagMapper::toDto));
     }
-
 
     @PatchMapping(path = "/{id}")
     public void update(@PathVariable Long id,
@@ -65,8 +65,8 @@ public class TagsController {
     }
 
     @GetMapping("/most-used")
-    public TagVo findMostUsedTag() {
+    public ResponseEntity<TagVo> findMostUsedTag() {
         Tag tag = tagService.findMostUsedTag();
-        return tagMapper.toDto(tag);
+        return ResponseEntity.ok(tagMapper.toDto(tag));
     }
 }
