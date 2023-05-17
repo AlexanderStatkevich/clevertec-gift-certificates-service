@@ -28,6 +28,7 @@ public class UserControllerTest extends BaseIntegrationTest {
 
     private final ObjectMapper objectMapper;
 
+
     @Test
     void findByIdIntegrationTest() throws Exception {
         UserVo response = TestUserControllerData.buildApiFindByIdResponse();
@@ -36,6 +37,14 @@ public class UserControllerTest extends BaseIntegrationTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(objectMapper.writeValueAsString(response)));
+    }
+
+    @Test
+    void findByIdWrongInputIntegrationTest() throws Exception {
+
+        mockMvc.perform(get("/users/{id}", 5)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
