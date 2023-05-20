@@ -2,6 +2,8 @@ package ru.clevertec.statkevich.giftcertificatesservice.controller;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +29,14 @@ public class UserController {
     private final UserMapper userMapper;
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserVo> getById(@NotBlank @PathVariable Long id) {
+    public ResponseEntity<UserVo> findById(@NotBlank @PathVariable Long id) {
         User user = userService.findById(id);
         return ResponseEntity.ok(userMapper.toDto(user));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<UserVo>> findAll(Pageable pageable) {
+        Page<User> userPage = userService.findAll(pageable);
+        return ResponseEntity.ok(userPage.map(userMapper::toDto));
     }
 }

@@ -1,0 +1,15 @@
+{
+    "id": 1,
+    "name": "test cert1",
+    "description": "in cinema",
+    "price": 10.30,
+    "duration": 25,
+    "createDate": "2022-04-24 00:00:00",
+    "lastUpdateDate": "2022-04-24 00:00:00",
+    "tags": [
+        {
+            "id": 1,
+            "name": "test1"
+        }
+    ]
+}

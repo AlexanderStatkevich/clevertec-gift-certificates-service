@@ -1,9 +1,9 @@
 package ru.clevertec.statkevich.giftcertificatesservice.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.clevertec.statkevich.giftcertificatesservice.domain.Tag;
 import ru.clevertec.statkevich.giftcertificatesservice.dto.TagCreateUpdateDto;
-
-import java.util.List;
 
 public interface ITagService {
 
@@ -11,7 +11,7 @@ public interface ITagService {
 
     Tag findById(Long id);
 
-    List<Tag> findAll();
+    Page<Tag> findAll(Pageable pageable);
 
     void update(Long id, TagCreateUpdateDto tagCreateUpdateDto);
 

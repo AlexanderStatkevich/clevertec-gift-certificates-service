@@ -2,6 +2,8 @@ package ru.clevertec.statkevich.giftcertificatesservice.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,8 +22,6 @@ import ru.clevertec.statkevich.giftcertificatesservice.filter.GiftCertificateFil
 import ru.clevertec.statkevich.giftcertificatesservice.mapper.GiftCertificateMapper;
 import ru.clevertec.statkevich.giftcertificatesservice.service.GiftCertificateService;
 
-import java.util.List;
-
 /**
  * Described class expose REST API to perform
  * CRUD operations for Gift Certificates.
@@ -36,13 +36,13 @@ public class GiftCertificatesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long create(@Valid @RequestBody GiftCertificateCreateUpdateDto giftCertificateCreateUpdateDto) {
+    public ResponseEntity<Long> create(@Valid @RequestBody GiftCertificateCreateUpdateDto giftCertificateCreateUpdateDto) {
         GiftCertificate giftCertificate = giftCertificateMapper.toEntity(giftCertificateCreateUpdateDto);
-        return giftCertificateService.create(giftCertificate);
+        return ResponseEntity.status(HttpStatus.CREATED).body(giftCertificateService.create(giftCertificate));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GiftCertificateVo> getById(@PathVariable Long id) {
+    public ResponseEntity<GiftCertificateVo> findById(@PathVariable Long id) {
         GiftCertificate giftCertificate = giftCertificateService.findById(id);
         return ResponseEntity.ok(giftCertificateMapper.toDto(giftCertificate));
     }
@@ -52,9 +52,9 @@ public class GiftCertificatesController {
      * @return list of Gift Certificates
      */
     @GetMapping
-    public List<GiftCertificateVo> getList(GiftCertificateFilter filter) {
-        List<GiftCertificate> certificateList = giftCertificateService.findAll(filter);
-        return giftCertificateMapper.toDtoList(certificateList);
+    public ResponseEntity<Page<GiftCertificateVo>> findAll(Pageable pageable, GiftCertificateFilter filter) {
+        Page<GiftCertificate> certificatePage = giftCertificateService.findAll(pageable, filter);
+        return ResponseEntity.ok(certificatePage.map(giftCertificateMapper::toDto));
     }
 
     @PatchMapping("/{id}")
